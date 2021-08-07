@@ -1,3 +1,5 @@
+:: comm! ProjectRun update | AsyncStop | sleep 1 | compiler msvc | set makeprg=\code\public-clones\imgui\examples\example_win32_directx12\build_win32.bat | AsyncMake
+::
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvars64.bat" x64 >NUL
 if ERRORLEVEL 1 (
 	echo Failed to find vcvars. Please update the path in %0
