@@ -1,3 +1,15 @@
+# Widget testing sandbox
+
+This fork has some minor changes to help test fixes.
+
+
+I've modified `examples\example_win32_directx12\build_win32.bat` to make
+iteration easier. I added imguizmo to that example so I can test fixes to it.
+
+
+Regularly scheduled README continues...
+
+
 Dear ImGui
 =====
 [![Build Status](https://github.com/ocornut/imgui/workflows/build/badge.svg)](https://github.com/ocornut/imgui/actions?workflow=build) [![Static Analysis Status](https://github.com/ocornut/imgui/workflows/static-analysis/badge.svg)](https://github.com/ocornut/imgui/actions?workflow=static-analysis)
