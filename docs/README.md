@@ -1,3 +1,15 @@
+# Widget testing sandbox
+
+This fork has some minor changes to help test fixes.
+
+
+I've modified `examples\example_win32_directx12\build_win32.bat` to make
+iteration easier.
+
+
+Regularly scheduled README continues...
+
+
 Dear ImGui
 =====
 
