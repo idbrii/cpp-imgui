@@ -5,6 +5,7 @@ This fork has some minor changes to help test fixes.
 
 I've modified `examples\example_win32_directx12\build_win32.bat` to make
 iteration easier.
+I added imguizmo to that example so I can test fixes to it.
 
 
 Regularly scheduled README continues...
