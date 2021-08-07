@@ -1,0 +1,3 @@
+[submodule "examples/example_win32_directx12/imguizmo"]
+	path = examples/example_win32_directx12/imguizmo
+	url = git@github.com:idbrii/cpp-imgui-ImGuizmo.git
