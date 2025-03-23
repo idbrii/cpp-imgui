@@ -6,6 +6,8 @@
 // - Documentation        https://dearimgui.com/docs (same as your local docs/ folder).
 // - Introduction, links and more at the top of imgui.cpp
 
+#include "imgui_combowithfilter.h"
+
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx12.h"
@@ -131,6 +133,9 @@ int main(int, char**)
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
+    // TODO(ComboWithFilter): Unfortunately, ComboWithFilter's InputText loses
+    // focus when scrolling with NavEnableKeyboard. Not sure how to prevent
+    // up/down from affecting nav while our widget is open.
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
@@ -174,9 +179,41 @@ int main(int, char**)
     //IM_ASSERT(font != nullptr);
 
     // Our state
-    bool show_demo_window = true;
+    bool show_demo_window = false;
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+    int current_item = 0;
+    int change_count = 0;
+    std::vector<std::string> combo_items = {
+        "Apple",
+        "Applesauce",
+        "Banana",
+        "Blackberry",
+        "Blueberry",
+        "Boysenberry",
+        "Cantaloupe",
+        "Cherry",
+        "Cranberry",
+        "Date",
+        "Elderberry",
+        "Gooseberry",
+        "Grape",
+        "Grapefruit",
+        "Honeydew",
+        "Huckleberry",
+        "Kiwi",
+        "Mango",
+        "Mangosteen",
+        "Orange",
+        "Peach",
+        "Pear",
+        "Pineapple",
+        "Plum",
+        "Raspberry",
+        "Strawberry",
+        "Watermelon",
+    };
 
     // Main loop
     bool done = false;
@@ -230,6 +267,21 @@ int main(int, char**)
                 counter++;
             ImGui::SameLine();
             ImGui::Text("counter = %d", counter);
+
+
+            ImGui::Separator();
+
+            ImGui::TextWrapped("Try 'berry' and refine further. Also try Arrow keys to navigate, Enter to select, Esc to close.");
+            ImGui::Text("Selected: %s", combo_items[current_item]);
+            ImGui::Text("Changed %i times", change_count);
+            const bool changed = ImGui::ComboWithFilter("ComboWithFilter", &current_item, combo_items);
+            if (changed)
+            {
+                ++change_count;
+            }
+
+            ImGui::Separator();
+
 
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
