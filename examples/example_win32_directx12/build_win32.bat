@@ -1,4 +1,4 @@
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvars64.bat" x64 >NUL
+call "C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Auxiliary\Build\vcvars64.bat" x64 >NUL
 if ERRORLEVEL 1 (
 	echo Failed to find vcvars. Please update the path in %0
 	exit /b 1
