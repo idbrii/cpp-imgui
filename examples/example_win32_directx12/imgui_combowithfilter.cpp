@@ -22,7 +22,8 @@
 #include "fts_fuzzy_match.h"
 
 
-// bgfx packs kenney image font with its imgui and this is a magnifying glass.
+// bgfx packs FontAwesome (and kenney image font) with its imgui and this is a
+// magnifying glass. Feel free to change to u8"\u1F50D" or empty string.
 static const char* ICON_FA_SEARCH = u8"\ue935";
 
 namespace ImGui
