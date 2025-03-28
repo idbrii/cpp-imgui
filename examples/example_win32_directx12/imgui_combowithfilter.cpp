@@ -61,6 +61,7 @@ static float CalcMaxPopupHeightFromItemCount(int items_count)
 bool ComboWithFilter(const char* label, int* current_item, const std::vector<std::string>& items, int popup_max_height_in_items /*= -1*/)
 {
     using namespace fts;
+    const bool allow_repeat = ImGuiInputFlags_Repeat;
 
     ImGuiContext& g = *GImGui;
 
@@ -126,11 +127,6 @@ bool ComboWithFilter(const char* label, int* current_item, const std::vector<std
     if (!BeginCombo(label, preview_value, ImGuiComboFlags_None))
         return false;
 
-    // Our Selectable shows current focus, so hide nav cursor to prevent
-    // flickering (only relevant with
-    // ImGuiConfigFlags_NavEnableKeyboard or Gamepad).
-    g.NavCursorVisible = false;
-
     if (!is_already_open)
     {
         focus_idx = *current_item;
@@ -154,19 +150,20 @@ bool ComboWithFilter(const char* label, int* current_item, const std::vector<std
     ImGui::PopStyleColor(2);
 
     int move_delta = 0;
-    if (IsKeyPressed(ImGuiKey_UpArrow, true))
+    // Use Shortcut to prevent NavEnableKeyboard from also responding to nav.
+    if (Shortcut(ImGuiKey_UpArrow, allow_repeat))
     {
         --move_delta;
     }
-    else if (IsKeyPressed(ImGuiKey_DownArrow, true))
+    else if (Shortcut(ImGuiKey_DownArrow, allow_repeat))
     {
         ++move_delta;
     }
-    else if (IsKeyPressed(ImGuiKey_PageUp, false))
+    else if (Shortcut(ImGuiKey_PageUp, ImGuiInputFlags_None))
     {
         move_delta -= popup_max_height_in_items;
     }
-    else if (IsKeyPressed(ImGuiKey_PageDown, false))
+    else if (Shortcut(ImGuiKey_PageDown, ImGuiInputFlags_None))
     {
         move_delta += popup_max_height_in_items;
     }
@@ -231,6 +228,7 @@ bool ComboWithFilter(const char* label, int* current_item, const std::vector<std
             *current_item = focus_idx;
             CloseCurrentPopup();
         }
+        // Using Shortcut would make the first Esc clear input (even if empty) and the second close the popup.
         else if (IsKeyPressed(ImGuiKey_Escape, repeat))
         {
             value_changed = false;
